@@ -13,13 +13,29 @@ const Theme = {
 };
 const switcher = document.querySelector('.theme-switch__toggle');
 switcher.addEventListener('change', changeTheme);
-function changeTheme(){
+function changeTheme() {
+    
     if (switcher.checked) {
-        body.classList.add(`${Theme.DARK}`);
-        body.classList.remove(`${Theme.LIGHT}`);
+        document.body.classList.add(`${Theme.DARK}`);
+        document.body.classList.remove(`${Theme.LIGHT}`);
+        localStorage.setItem("theme", `${Theme.DARK}`);
     } else {
-        body.classList.remove(`${Theme.DARK}`);
-        body.classList.add(`${Theme.LIGHT}`);
+        document.body.classList.remove(`${Theme.DARK}`);
+        document.body.classList.add(`${Theme.LIGHT}`);
+        localStorage.setItem("theme", `${Theme.LIGHT}`);
     }
+}
+
+const currentTheme = saveTheme();
+function saveTheme() {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme) {
+        document.body.classList.add(savedTheme);
+        if (savedTheme=== `${Theme.DARK}`) {
+       switcher.checked = true;
+    }
+    }
+
 }
 
